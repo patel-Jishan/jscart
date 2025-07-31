@@ -1,0 +1,150 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and Font */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 20px;
+}
+
+/* Navigation Bar */
+nav {
+  background-color: #4a3aff;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+nav h1 {
+  font-size: 24px;
+}
+
+nav .search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0 10px;
+  margin: 10px 0;
+}
+
+nav .search-box i {
+  margin-right: 5px;
+  color: #4a3aff;
+}
+
+nav .search-box input {
+  border: none;
+  padding: 8px 10px;
+  outline: none;
+  width: 200px;
+}
+
+/* Navigation Links */
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #ffb534;
+}
+
+/* Product Input Form Table */
+table {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  border-collapse: collapse;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table td {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+}
+
+table input[type="text"],
+table input[type="file"],
+table input[type="search"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+table input[type="submit"] {
+  background-color: #4a3aff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+table input[type="submit"]:hover {
+  background-color: #3625d5;
+}
+
+/* Bottom Search */
+#search {
+  margin: 20px auto;
+  display: block;
+  width: 90%;
+  max-width: 500px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Result Section */
+#res {
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  min-height: 100px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav .search-box input {
+    width: 100%;
+  }
+
+  nav a {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  table {
+    width: 100%;
+  }
+}

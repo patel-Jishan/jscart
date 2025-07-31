@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopCart | Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/home.css" type="text/css" />
+</head>
+<body>
+
+  <nav>
+    <div>
+      <h1>ShoppingCart.In</h1>
+    </div>
+
+    <div class="search-box">
+      <i class="ri-search-line"></i>
+      <input type="search" id="search" onkeyup="searchproduct()" placeholder="Search for products" />
+    </div>
+
+    <div>
+      <a href="home.html">Menu</a>
+      <a href="admin.html">Admin</a>
+      <a href="cart.html"><i class="ri-shopping-cart-line"></i></a>
+    </div>
+  </nav>
+
+  <div id="res"></div>
+
+  <script src="script.js"></script>
+  <script>
+    // Load products on page load
+    window.onload = function () {
+      viewData();
+    };
+
+    function viewData() {
+      const vdata = localStorage.getItem('product');
+      if (!vdata) {
+        document.getElementById('res').innerHTML = "<p>No products available.</p>";
+        return;
+      }
+
+      const view = JSON.parse(vdata);
+      let data = "";
+
+      for (let i = 0; i < view.length; i++) {
+        data += `
+          <div>
+            <img src="images/${view[i].img}" width="340" height="250" style="object-fit: cover;"><br>
+            <strong>${view[i].name}</strong><br>
+            Brand: ${view[i].brand}<br>
+            Price: ₹${view[i].price}<br><br>
+            <button onclick="addToCart(${view[i].no})">Add to Cart</button><br>
+          </div>
+        `;
+      }
+
+      document.getElementById('res').innerHTML = data;
+    }
+
+    function addToCart(no) {
+      let allProducts = JSON.parse(localStorage.getItem('product')) || [];
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const productToAdd = allProducts.find(p => p.no === no);
+      if (!productToAdd) return;
+
+      const existingItem = cart.find(item => item.no === no);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ ...productToAdd, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert("Item added to cart!");
+    }
+
+    function searchproduct() {
+      const proname = document.getElementById('search').value.toLowerCase();
+      const ser = localStorage.getItem('product');
+      if (!ser) return;
+
+      const record = JSON.parse(ser);
+      let data = "";
+
+      record.forEach(product => {
+        if (product.name.toLowerCase().includes(proname)) {
+          data += `
+            <div>
+              <img src="images/${product.img}" width="340" height="250" style="object-fit: cover;"><br>
+              <strong>${product.name}</strong><br>
+              Brand: ${product.brand}<br>
+              Price: ₹${product.price}<br><br>
+              <button onclick="addToCart(${product.no})">Add to Cart</button><br>
+            </div>
+          `;
+        }
+      });
+
+      document.getElementById('res').innerHTML = data || "<p>No matching products found.</p>";
+    }
+  </script>
+</body>
+</html>

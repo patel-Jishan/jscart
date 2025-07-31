@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+    <link rel="stylesheet" href="css/admin.css" type="text/css">
+</head>
+<body>
+    <nav>
+        <div>
+            <h1>ShoppingCart.In</h1>
+        </div>
+        
+        <div class="search-box">
+            <i class="ri-search-line"></i>
+            <input type="search" id="search" onkeyup="searchproduct()" placeholder="Search for products">
+        </div>
+        
+        <div>
+            <a href="home.html">Menu</a>
+            <a href="admin.html">Admin</a>
+            <a href="cart.html"><i class="ri-shopping-cart-line"></i></a>
+        </div>
+    </nav>
+
+
+    <input type="search" name="" id="search" onkeyup="searchproduct()" placeholder="Search Your Product">
+    <table border="1">
+        <input type="hidden" id="editno">
+        <tr>
+            <td>Image : </td>
+            <td><input type="file" id="img"></td>
+        </tr>
+        <tr>
+            <td>Name : </td>
+            <td><input type="text" id="name"></td>
+        </tr>
+        <tr>
+            <td>Brand : </td>
+            <td><input type="text" id="brand"></td>
+        </tr>
+        <tr>
+            <td>Price : </td>
+            <td><input type="text" id="price"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Add Data" id="submit" onclick="addData()"></td>
+        </tr>
+    </table>
+
+    <div id="res"></div>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

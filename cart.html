@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+    <link rel="stylesheet" href="css/admin.css" type="text/css">
+    
+</head>
+<body>
+    <nav>
+        <div>
+            <h1>ShoppingCart.In</h1>
+        </div>
+        
+        <div class="search-box">
+            <i class="ri-search-line"></i>
+            <input type="search" id="search" onkeyup="searchproduct()" placeholder="Search for products">
+        </div>
+        
+        <div>
+            <a href="home.html">Menu</a>
+            <a href="admin.html">Admin</a>
+            <a href="cart.html"><i class="ri-shopping-cart-line"></i></a>
+        </div>
+    </nav>
+
+    <h1>Your Cart</h1>
+    <div id="cartItems"></div>
+
+  <script src="script.js"></script>
+
+    <script>
+    function loadCart() {
+        let cartData = localStorage.getItem('cart');
+        let cart = cartData ? JSON.parse(cartData) : [];
+
+        if (cart.length === 0) {
+            document.getElementById('cartItems').innerHTML = "<p style='text-align:center;'>Your cart is empty.</p>";
+            return;
+        }
+
+        let data = "<table><tr><th>Image</th><th>Name</th><th>Brand</th><th>Price</th><th>Quantity</th><th>Total</th><th>Action</th></tr>";
+        let grandTotal = 0;
+
+        cart.forEach(item => {
+            let total = parseInt(item.price) * item.quantity;
+            grandTotal += total;
+
+            data += `<tr>
+                <td><img src='images/${item.img}' alt='${item.name}'></td>
+                <td>${item.name}</td>
+                <td>${item.brand}</td>
+                <td>₹${item.price}</td>
+                <td>
+                    <button onclick="decreaseQty(${item.no})">-</button>
+                    ${item.quantity}
+                    <button onclick="increaseQty(${item.no})">+</button>
+                </td>
+                <td>₹${total}</td>
+                <td><button onclick="removeFromCart(${item.no})">Remove</button></td>
+            </tr>`;
+        });
+
+        data += `<tr><td colspan="5" style="text-align:right;"><strong>Grand Total:</strong></td><td colspan="2"><strong>₹${grandTotal}</strong></td></tr>`;
+        data += "</table>";
+        document.getElementById('cartItems').innerHTML = data;
+    }
+
+    function removeFromCart(no) {
+        let cartData = localStorage.getItem('cart');
+        let cart = cartData ? JSON.parse(cartData) : [];
+        cart = cart.filter(item => item.no !== no);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+
+    function increaseQty(no) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        for (let item of cart) {
+            if (item.no === no) {
+                item.quantity += 1;
+                break;
+            }
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+
+    function decreaseQty(no) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].no === no) {
+                if (cart[i].quantity > 1) {
+                    cart[i].quantity -= 1;
+                } else {
+                    cart.splice(i, 1);
+                }
+                break;
+            }
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+
+    window.onload = loadCart;
+</script>
+
+</body>
+</html>
